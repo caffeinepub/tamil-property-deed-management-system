@@ -1,0 +1,9 @@
+{
+  "frontend/src/App.tsx": "Main application entry point that sets up TanStack Router with all six routes (home, parties, locations, sale-deed, agreement-deed, drafts) wrapped in the Layout component via a root route with Outlet.",
+  "frontend/src/pages/LocationManagement.tsx": "Full CRUD page for managing sub-registrar office locations with search, table listing, add/edit dialog, and delete confirmation — all wired to IC backend via React Query hooks.",
+  "frontend/src/pages/SaleDeedForm.tsx": "Five-step multi-step Sale Deed creation form with left-side inputs (seller, buyer, property, transaction, witness details) and right-side live Tamil preview, including party search, amount-to-Tamil-words conversion, and Save as Draft functionality.",
+  "frontend/src/pages/AgreementDeedForm.tsx": "Five-step Agreement Deed creation form with buyer/seller details, advance/balance amount fields with Tamil word conversion, deadline configuration, witness details, and live Tamil preview with Save as Draft support.",
+  "frontend/src/pages/Drafts.tsx": "Drafts listing page showing all saved deed drafts with type badges, creation/update dates, preview dialog, resume navigation, and delete confirmation.",
+  "frontend/src/pages/Home.tsx": "Dashboard home page with welcome banner, stats cards (parties/locations/drafts counts), and quick-link cards to all major sections, plus footer attribution.",
+  "frontend/src/components/Layout.tsx": "Application shell with collapsible sidebar navigation (all six routes), top header bar showing current page title, mobile overlay support, and Sonner toast provider."
+}

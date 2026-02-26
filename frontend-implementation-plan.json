@@ -1,0 +1,284 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Tamil Property Deed Management System — Frontend Implementation",
+  "requirements": [
+    {
+      "id": "REQ-2",
+      "summary": "Build Party Management page for adding, editing, and deleting person records with Tamil/English support",
+      "acceptanceCriteria": [
+        "Page shows a table/list of all saved persons",
+        "Add form allows entering name, Aadhaar, mobile, address, relationship",
+        "Edit and Delete actions work for each entry",
+        "Changes persist via IC backend calls"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/PartyManagement.tsx",
+          "operation": "create",
+          "description": "Create Party Management page (நபர்கள் மேலாண்மை) with a data table listing all parties fetched via getAllParties(). Include add/edit form with fields: name (Tamil/English), Aadhaar number, mobile, address, relationship type. Wire up addParty(), updateParty(), and deleteParty() backend methods. Use shadcn/ui Table, Dialog, Form, Input, and Button components."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /parties pointing to PartyManagement page. Add navigation link in sidebar for 'நபர்கள் மேலாண்மை / Party Management'."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build Location Management page for sub-registrar office details with CRUD operations",
+      "acceptanceCriteria": [
+        "Page shows a list of all saved sub-registrar office entries",
+        "Add/edit form covers office name, district, taluk, village fields",
+        "Delete action removes an entry via backend call",
+        "Data persists across page reloads"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LocationManagement.tsx",
+          "operation": "create",
+          "description": "Create Location Management page (இட விவரங்கள் மேலாண்மை) with table listing all locations from getAllLocations(). Include add/edit form with fields: officeName, district, taluk, village. Wire up addLocation(), updateLocation(), and deleteLocation() backend methods. Use shadcn/ui components for layout."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /locations pointing to LocationManagement page. Add navigation link in sidebar for 'இட விவரங்கள் மேலாண்மை / Location Management'."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Build Document Preparer management accessible from deed forms with inline add and dropdown select",
+      "acceptanceCriteria": [
+        "Dropdown lists all saved document preparers",
+        "Option to add a new preparer inline with name, office, mobile fields",
+        "Selected preparer's details auto-fill into the deed form",
+        "Preparer records persist in backend"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/DocumentPreparerSelect.tsx",
+          "operation": "create",
+          "description": "Create reusable DocumentPreparerSelect component that fetches all preparers via getAllPreparers(), displays them in a shadcn/ui Select dropdown, and includes an inline 'Add New Preparer' dialog with fields: name, office, mobile. On add, call addPreparer() and refresh the list. Emit selected preparer details to parent component."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Build 5-step multi-step Sale Deed creation form with left-side inputs and right-side live Tamil preview",
+      "acceptanceCriteria": [
+        "Five clearly labelled steps with next/previous navigation",
+        "Each step shows relevant input fields on the left side",
+        "Right side shows a live Tamil document preview that updates as fields are filled",
+        "Multiple sellers and multiple buyers can be added dynamically",
+        "Sale consideration amount field automatically converts numeric value to Tamil words in the preview",
+        "Sub-registrar office can be selected from saved locations",
+        "Document preparer can be selected from saved preparers or added new"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SaleDeedForm.tsx",
+          "operation": "create",
+          "description": "Create 5-step multi-step Sale Deed form page (விற்பனைப் பத்திரம்). Use a two-column layout: left side for input fields, right side for live Tamil preview. Step 1: Seller details (support multiple sellers with dynamic add/remove). Step 2: Buyer details (support multiple buyers). Step 3: Property details (survey number, extent, boundaries, sub-registrar office dropdown from getAllLocations()). Step 4: Transaction details (sale consideration with auto-conversion to Tamil words, advance paid, registration date, document number). Step 5: Witness details (two witnesses) and DocumentPreparerSelect component. Include Next/Previous navigation buttons. Use shadcn/ui Tabs or custom step indicator for step tracking."
+        },
+        {
+          "path": "frontend/src/components/TamilPreview.tsx",
+          "operation": "create",
+          "description": "Create TamilPreview component that accepts form data as props and renders the live Tamil Sale Deed document. Apply Mukta Malar font (size 14) for Tamil text and Times New Roman (size 14) for English text. Update in real-time as form data changes."
+        },
+        {
+          "path": "frontend/src/utils/tamilNumberConverter.ts",
+          "operation": "create",
+          "description": "Create utility function to convert numeric amounts to Tamil words (e.g., 500000 → 'ஐந்து லட்சம் ரூபாய்'). Use this in the preview to display sale consideration and advance amounts as Tamil text."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /sale-deed pointing to SaleDeedForm page. Add navigation link in sidebar for 'விற்பனைப் பத்திரம் / Sale Deed'."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Build Agreement Deed creation form with live Tamil preview and all required fields",
+      "acceptanceCriteria": [
+        "Form includes all required fields: buyer, seller, advance amount, balance amount, deadline, property description, two witnesses",
+        "Advance and balance amounts auto-convert to Tamil words in the preview",
+        "Live Tamil preview updates in real time as fields are filled",
+        "Supports PDF download and print preview"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/AgreementDeedForm.tsx",
+          "operation": "create",
+          "description": "Create Agreement Deed form page (கிரைய உடன்படிக்கை பத்திரம்) with two-column layout: left for inputs, right for live Tamil preview. Include fields: buyer details, seller details, advance amount, balance amount, deadline date, property details, two witness details, and DocumentPreparerSelect. Use tamilNumberConverter for amount conversion. Use TamilPreview component (or create AgreementTamilPreview variant) for live preview."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /agreement-deed pointing to AgreementDeedForm page. Add navigation link in sidebar for 'கிரைய உடன்படிக்கை பத்திரம் / Agreement Deed'."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Implement Tamil auto-generation logic for singular/plural forms and relationship terms in document preview",
+      "acceptanceCriteria": [
+        "Single seller/buyer uses singular Tamil pronoun/noun; multiple uses plural",
+        "Relationship terms appear correctly in the document body",
+        "Full Tamil deed text is rendered with all data fields substituted"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/tamilTextGenerator.ts",
+          "operation": "create",
+          "description": "Create utility functions for Tamil document generation logic: (1) detectSingularOrPlural() to return singular (விற்பவர்) or plural (விற்பவர்கள்) based on array length; (2) formatRelationship() to map relationship type to correct Tamil term (e.g., 'son of' → 'மகன்', 'wife of' → 'மனைவி'); (3) generateSaleDeedTamilText() and generateAgreementDeedTamilText() to produce full Tamil deed templates with all form data substituted."
+        },
+        {
+          "path": "frontend/src/components/TamilPreview.tsx",
+          "operation": "modify",
+          "description": "Import and use tamilTextGenerator utilities to dynamically generate Tamil document text based on form data. Ensure singular/plural forms and relationship terms are correctly applied."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Implement PDF Download and Print Preview with correct Tamil and English fonts",
+      "acceptanceCriteria": [
+        "A 'Download PDF' button generates and downloads the deed as a PDF file",
+        "A 'Print Preview' button opens a browser print dialog with the formatted deed",
+        "Tamil text renders in Mukta Malar size 14 in both PDF and print output",
+        "English text renders in Times New Roman size 14 in both PDF and print output",
+        "Printed/exported document does not include UI chrome (buttons, navigation)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/pdfGenerator.ts",
+          "operation": "create",
+          "description": "Create PDF generation utility using a frontend PDF library (e.g., jsPDF or react-pdf). Accept Tamil deed text and metadata, apply Mukta Malar font (size 14) for Tamil content and Times New Roman (size 14) for English content. Export generatePDF() function that returns a downloadable PDF blob."
+        },
+        {
+          "path": "frontend/src/pages/SaleDeedForm.tsx",
+          "operation": "modify",
+          "description": "Add 'Download PDF' button that calls pdfGenerator.generatePDF() with current form data and triggers file download. Add 'Print Preview' button that opens browser print dialog with print-friendly styles applied (hide buttons, navigation, show only Tamil preview content)."
+        },
+        {
+          "path": "frontend/src/pages/AgreementDeedForm.tsx",
+          "operation": "modify",
+          "description": "Add 'Download PDF' and 'Print Preview' buttons using the same pdfGenerator utility. Ensure print styles hide UI chrome and preserve Tamil/English font rendering."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add @font-face rule to import Mukta Malar font for Tamil text. Add print media query styles to hide navigation, buttons, and input panels during print, and ensure preview area uses full page width with correct fonts."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Implement Save as Draft functionality and Drafts listing page with resume and delete actions",
+      "acceptanceCriteria": [
+        "'Save as Draft' button is available throughout the form",
+        "Draft is saved to IC backend with deed type, timestamp, and all current field values",
+        "Drafts page lists all saved drafts with deed type and date",
+        "Clicking a draft loads all its data back into the form at the correct step",
+        "Drafts can be deleted from the listing"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SaleDeedForm.tsx",
+          "operation": "modify",
+          "description": "Add 'Save as Draft' button available on all steps. On click, serialize current form data to JSON, generate a unique draft ID, call saveDraft() with DeedType.SaleDeed, formData JSON string, and timestamps. Show success message after save."
+        },
+        {
+          "path": "frontend/src/pages/AgreementDeedForm.tsx",
+          "operation": "modify",
+          "description": "Add 'Save as Draft' button. Serialize form data, call saveDraft() with DeedType.AgreementDeed and formData JSON. Confirm save success to user."
+        },
+        {
+          "path": "frontend/src/pages/Drafts.tsx",
+          "operation": "create",
+          "description": "Create Drafts listing page (வரைவுகள் / Drafts) that fetches all drafts via getAllDrafts(). Display table with columns: deed type, created date, updated date, actions (Resume, Delete). On Resume, navigate to appropriate deed form (/sale-deed or /agreement-deed) with draft ID in query param. On Delete, call deleteDraft() and refresh list."
+        },
+        {
+          "path": "frontend/src/pages/SaleDeedForm.tsx",
+          "operation": "modify",
+          "description": "On component mount, check for draft ID in query params. If present, call getDraft() to fetch draft data, parse formData JSON, and populate all form fields with saved values. Restore the correct step if step info is included in draft."
+        },
+        {
+          "path": "frontend/src/pages/AgreementDeedForm.tsx",
+          "operation": "modify",
+          "description": "On component mount, check for draft ID in query params. If present, fetch and populate form with draft data from getDraft()."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for /drafts pointing to Drafts page. Add navigation link in sidebar for 'வரைவுகள் / Drafts'."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Apply consistent professional visual theme with warm neutrals, bilingual labels, and structured sidebar navigation",
+      "acceptanceCriteria": [
+        "Sidebar navigation is present on all pages with links to all major sections",
+        "Consistent color palette and typography applied across all pages",
+        "All form labels and headings appear in both Tamil and English",
+        "Layout feels formal and professional, appropriate for legal document use"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "create",
+          "description": "Create Layout component with structured sidebar navigation on the left containing links to: Party Management (நபர்கள் மேலாண்மை), Location Management (இட விவரங்கள் மேலாண்மை), Sale Deed (விற்பனைப் பத்திரம்), Agreement Deed (கிரைய உடன்படிக்கை பத்திரம்), and Drafts (வரைவுகள்). Include generated logo image at frontend/public/assets/generated/app-logo.dim_256x256.png at the top of sidebar. Use a main content area for page rendering."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap all routes with Layout component to display sidebar navigation and header on every page."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define CSS custom properties (variables) for consistent color palette: cream background (--color-bg-primary), deep teal primary (--color-primary), dark green accent (--color-accent), gold highlight (--color-highlight). Apply formal typography styles using system fonts for English and Mukta Malar for Tamil. Set global layout styles for sidebar and content areas."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme to include custom color palette (cream, deep teal, dark green, gold) and font families (Mukta Malar for Tamil, Times New Roman for English). Ensure these tokens are used consistently across all components."
+        },
+        {
+          "path": "frontend/src/pages/PartyManagement.tsx",
+          "operation": "modify",
+          "description": "Apply bilingual labels (Tamil + English) to all form fields and headings. Use consistent theme colors and spacing."
+        },
+        {
+          "path": "frontend/src/pages/LocationManagement.tsx",
+          "operation": "modify",
+          "description": "Apply bilingual labels and consistent theme styling."
+        },
+        {
+          "path": "frontend/src/pages/SaleDeedForm.tsx",
+          "operation": "modify",
+          "description": "Apply bilingual labels to all steps and fields. Use theme colors and formal layout styling."
+        },
+        {
+          "path": "frontend/src/pages/AgreementDeedForm.tsx",
+          "operation": "modify",
+          "description": "Apply bilingual labels and consistent theme styling."
+        },
+        {
+          "path": "frontend/src/pages/Drafts.tsx",
+          "operation": "modify",
+          "description": "Apply bilingual table headers and consistent theme styling."
+        },
+        {
+          "path": "frontend/public/assets/generated/app-logo.dim_256x256.png",
+          "operation": "create",
+          "description": "Wire the generated app logo image (legal balance scale with Tamil 'த' letterform, gold on deep teal, circular badge) into the sidebar header in Layout component. Reference this exact workspace path in the Layout's img src attribute."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "kind": "build_request",
+  "title": "Tamil Property Deed Management System — Full Build",
+  "projectName": "Tamil Deed Manager",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a Motoko backend actor that persistently stores: (1) Party records with fields: id, name, aadhaar, mobile, address, relationship; (2) Location/Sub-registrar office records with fields: id, officeName, district, taluk, village; (3) Document Preparer records with fields: id, name, office, mobile; (4) Deed draft records with fields: id, deedType (SaleDeed | AgreementDeed), createdAt, updatedAt, and a serialized JSON blob of all form data. Expose CRUD operations for each entity.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-3",
+          "msg-4"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Party records can be created, listed, updated, and deleted via Motoko public functions",
+        "Location/sub-registrar office records can be created, listed, updated, and deleted",
+        "Document preparer records can be created, listed, updated, and deleted",
+        "Deed drafts can be saved, retrieved by id, listed, updated, and deleted",
+        "All data persists across canister upgrades using stable variables"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Build a Party Management page (நபர்கள் மேலாண்மை) where users can add, edit, and delete persons. Each person record includes: full name (Tamil/English), Aadhaar number, mobile number, address, and relationship type (e.g., son of, wife of). Data is stored and retrieved from the IC backend.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Page shows a table/list of all saved persons",
+        "Add form allows entering name, Aadhaar, mobile, address, relationship",
+        "Edit and Delete actions work for each entry",
+        "Changes persist via IC backend calls"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build a Location Management page (இட விவரங்கள் மேலாண்மை) where users can add, edit, and delete sub-registrar office details including office name, district, taluk, and village. Data is stored persistently in the IC backend.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Page shows a list of all saved sub-registrar office entries",
+        "Add/edit form covers office name, district, taluk, village fields",
+        "Delete action removes an entry via backend call",
+        "Data persists across page reloads"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Build a Document Preparer management section accessible from the deed creation forms. Users can add a new preparer (name, office, mobile) or select an existing preparer from a dropdown. Preparer data is stored persistently in the IC backend.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dropdown lists all saved document preparers",
+        "Option to add a new preparer inline with name, office, mobile fields",
+        "Selected preparer's details auto-fill into the deed form",
+        "Preparer records persist in backend"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Build a 5-step multi-step form for Sale Deed creation. The layout has left-side input fields and right-side live Tamil document preview. Steps: Step 1 — Seller details (name, Aadhaar, mobile, address, relationship; supports multiple sellers); Step 2 — Buyer details (name, Aadhaar, mobile, address, relationship; supports multiple buyers); Step 3 — Property details (survey number, extent, boundaries, sub-registrar office from saved locations); Step 4 — Transaction details (sale consideration amount with automatic conversion to Tamil words, advance paid, registration date, document number); Step 5 — Witness details (witness 1 and witness 2 names and addresses) plus document preparer selection.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3",
+          "msg-4"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Five clearly labelled steps with next/previous navigation",
+        "Each step shows relevant input fields on the left side",
+        "Right side shows a live Tamil document preview that updates as fields are filled",
+        "Multiple sellers and multiple buyers can be added dynamically",
+        "Sale consideration amount field automatically converts numeric value to Tamil words in the preview",
+        "Sub-registrar office can be selected from saved locations",
+        "Document preparer can be selected from saved preparers or added new"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Build an Agreement Deed creation form (தனி படிவம்) with fields for: buyer/seller details, advance amount paid, balance amount, deadline date for full payment, property details, and two witness details. The form generates a Tamil Agreement Deed document in live preview on the right side.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Form includes all required fields: buyer, seller, advance amount, balance amount, deadline, property description, two witnesses",
+        "Advance and balance amounts auto-convert to Tamil words in the preview",
+        "Live Tamil preview updates in real time as fields are filled",
+        "Supports PDF download and print preview"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Implement Tamil document auto-generation logic in the live preview: (1) Automatically use singular form when there is one seller/buyer and plural form when there are multiple (e.g., விற்பவர் vs விற்பவர்கள்); (2) Display the correct relationship term based on the selected relationship type; (3) Render full Tamil Sale Deed and Agreement Deed template text populated with form data.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Single seller/buyer uses singular Tamil pronoun/noun; multiple uses plural",
+        "Relationship terms appear correctly in the document body",
+        "Full Tamil deed text is rendered with all data fields substituted"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Implement PDF Download and Print Preview for both Sale Deed and Agreement Deed. The exported/printed document must use Mukta Malar font (size 14) for Tamil text and Times New Roman (size 14) for any English text.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3",
+          "msg-4"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A 'Download PDF' button generates and downloads the deed as a PDF file",
+        "A 'Print Preview' button opens a browser print dialog with the formatted deed",
+        "Tamil text renders in Mukta Malar size 14 in both PDF and print output",
+        "English text renders in Times New Roman size 14 in both PDF and print output",
+        "Printed/exported document does not include UI chrome (buttons, navigation)"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Implement Save as Draft functionality: at any step of the Sale Deed or Agreement Deed form, the user can save the current form data as a draft. Drafts are stored permanently in the IC backend. A Drafts listing page allows users to resume, view, or delete saved drafts.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ]
+      },
+      "acceptanceCriteria": [
+        "'Save as Draft' button is available throughout the form",
+        "Draft is saved to IC backend with deed type, timestamp, and all current field values",
+        "Drafts page lists all saved drafts with deed type and date",
+        "Clicking a draft loads all its data back into the form at the correct step",
+        "Drafts can be deleted from the listing"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Apply a consistent, professional visual theme throughout the application suitable for a legal/property document management tool. Use a clean, formal aesthetic with warm neutral tones (cream, deep teal or dark green, gold accents), clear Tamil + English bilingual labels, and a structured sidebar navigation linking to: Party Management, Location Management, Sale Deed, Agreement Deed, and Drafts.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-3"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Sidebar navigation is present on all pages with links to all major sections",
+        "Consistent color palette and typography applied across all pages",
+        "All form labels and headings appear in both Tamil and English",
+        "Layout feels formal and professional, appropriate for legal document use"
+      ]
+    }
+  ],
+  "constraints": [
+    "All Motoko logic must remain in a single actor in backend/main.mo",
+    "Do not edit any files under frontend/src/hooks/ or frontend/src/components/ui",
+    "Tamil text in live preview and exported documents must use Mukta Malar font size 14",
+    "English text in live preview and exported documents must use Times New Roman font size 14",
+    "PDF generation must run entirely on the frontend (no backend involvement)"
+  ],
+  "nonGoals": [
+    "Internet Identity / user authentication",
+    "Multi-user access control or role-based permissions",
+    "Real-time collaboration or WebSocket features",
+    "External API integrations (e-stamp, government registry APIs)",
+    "Mobile app or native app version"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Legal document management app logo — a stylized balance scale combined with a Tamil 'த' letterform, gold on deep teal background, circular badge style (app-logo.dim_256x256.png)"
+    ],
+    "edits": []
+  }
+}

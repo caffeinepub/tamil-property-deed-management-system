@@ -1,0 +1,96 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-26T17:36:42.155Z",
+  "summary": "The diff implements most of the requested requirements. The Motoko backend (REQ-1), Party Management (REQ-2), Location Management (REQ-3), Document Preparer management (REQ-4), Sale Deed multi-step form (REQ-5), Agreement Deed form (REQ-6), Tamil document generation logic (REQ-7), PDF/Print functionality (REQ-8), Draft management (REQ-9), and visual theme/navigation (REQ-10) are all present. However, several specific acceptance criteria have gaps: the backend does not use stable variables for persistence, the PDF download produces HTML not a true PDF, English text font handling in print/PDF is incomplete, and the Drafts page does not properly restore form state when resuming a draft.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "All data persists across canister upgrades using stable variables",
+      "reason": "The backend/main.mo uses Map.empty() for partyMap, locationMap, preparerMap, and draftMap as regular let bindings, not stable variables. No preupgrade/postupgrade system functions or stable storage mechanism is visible in the code.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "A Download PDF button generates and downloads the deed as a PDF file",
+      "reason": "The handleDownload function in TamilPreview.tsx downloads an HTML file with blob type text/html and a filename ending in .html, not a true PDF. The requirement explicitly states PDF generation must run entirely on the frontend but the output is HTML.",
+      "evidence": [
+        "frontend/src/components/TamilPreview.tsx"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "English text renders in Times New Roman size 14 in both PDF and print output",
+      "reason": "The print and download HTML templates in TamilPreview.tsx apply only Mukta Malar font globally with no Times New Roman font applied to English text segments. There is no per-segment font differentiation between Tamil and English text in the exported or printed output.",
+      "evidence": [
+        "frontend/src/components/TamilPreview.tsx"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "Clicking a draft loads all its data back into the form at the correct step",
+      "reason": "In Drafts.tsx, handleResume navigates to the deed form route but only shows a toast message. It does not deserialize and restore the draft formData JSON into the form state, so draft data is not actually loaded back into the form.",
+      "evidence": [
+        "frontend/src/pages/Drafts.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "PartySearchSelect component allowing search and selection of saved parties from the backend to auto-populate seller and buyer fields in deed forms",
+      "reason": "The build request does not request a party search widget for auto-populating party details from the party management store into deed forms. It only specifies that multiple sellers and buyers can be added dynamically.",
+      "evidence": [
+        "frontend/src/components/PartySearchSelect.tsx",
+        "frontend/src/pages/SaleDeedForm.tsx",
+        "frontend/src/pages/AgreementDeedForm.tsx"
+      ]
+    },
+    {
+      "description": "Home dashboard page with statistics counters and quick links",
+      "reason": "The build request does not mention a home or dashboard page. The sidebar navigation specification lists only Party Management, Location Management, Sale Deed, Agreement Deed, and Drafts.",
+      "evidence": [
+        "frontend/src/pages/Home.tsx",
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "description": "PAN Card field added to party and deed form fields",
+      "reason": "The build request specifies party fields as name, aadhaar, mobile, address, and relationship only. PAN card is not among the requested fields for any entity.",
+      "evidence": [
+        "frontend/src/components/PartyFormFields.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.72,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/DocumentPreparerSelect.tsx",
+    "frontend/src/components/Layout.tsx",
+    "frontend/src/components/PartyFormFields.tsx",
+    "frontend/src/components/PartySearchSelect.tsx",
+    "frontend/src/components/TamilPreview.tsx",
+    "frontend/src/components/WitnessFormFields.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AgreementDeedForm.tsx",
+    "frontend/src/pages/Drafts.tsx",
+    "frontend/src/pages/Home.tsx",
+    "frontend/src/pages/LocationManagement.tsx",
+    "frontend/src/pages/PartyManagement.tsx",
+    "frontend/src/pages/SaleDeedForm.tsx",
+    "frontend/src/utils/tamilNumberConverter.ts",
+    "frontend/src/utils/tamilTextGenerator.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

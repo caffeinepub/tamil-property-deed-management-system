@@ -1,0 +1,187 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-build-a-party-management-page-where-users-can-add-edit-and-delete-persons-each-person-record-includes-full-name-tamil-english-aadhaar-number-mobile-number-address-and-relationship-type-e-g-son-of-wife-of-data-is-stored-and-retrieved-from-the-ic-backend",
+      "featureTitle": "Build a Party Management page (நபர்கள் மேலாண்மை) where users can add, edit, and delete persons. Each person record includes: full name (Tamil/English), Aadhaar number, mobile number, address, and relationship type (e.g., son of, wife of). Data is stored and retrieved from the IC backend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/PartyManagement.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-location-management-page-where-users-can-add-edit-and-delete-sub-registrar-office-details-including-office-name-district-taluk-and-village-data-is-stored-persistently-in-the-ic-backend",
+      "featureTitle": "Build a Location Management page (இட விவரங்கள் மேலாண்மை) where users can add, edit, and delete sub-registrar office details including office name, district, taluk, and village. Data is stored persistently in the IC backend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/LocationManagement.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-document-preparer-management-section-accessible-from-the-deed-creation-forms-users-can-add-a-new-preparer-name-office-mobile-or-select-an-existing-preparer-from-a-dropdown-preparer-data-is-stored-persistently-in-the-ic-backend",
+      "featureTitle": "Build a Document Preparer management section accessible from the deed creation forms. Users can add a new preparer (name, office, mobile) or select an existing preparer from a dropdown. Preparer data is stored persistently in the IC backend.",
+      "files": [
+        "frontend/src/components/DocumentPreparerSelect.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-5-step-multi-step-form-for-sale-deed-creation-the-layout-has-left-side-input-fields-and-right-side-live-tamil-document-preview-steps-step-1-seller-details-name-aadhaar-mobile-address-relationship-supports-multiple-sellers-step-2-buyer-details-name-aadhaar-mobile-address-relationship-supports-multiple-buyers-step-3-property-details-survey-number-extent-boundaries-sub-registrar-office-from-saved-locations-step-4-transaction-details-sale-consideration-amount-with-automatic-conversion-to-tamil-words-advance-paid-registration-date-document-number-step-5-witness-details-witness-1-and-witness-2-names-and-addresses-plus-document-preparer-selection",
+      "featureTitle": "Build a 5-step multi-step form for Sale Deed creation. The layout has left-side input fields and right-side live Tamil document preview. Steps: Step 1 — Seller details (name, Aadhaar, mobile, address, relationship; supports multiple sellers); Step 2 — Buyer details (name, Aadhaar, mobile, address, relationship; supports multiple buyers); Step 3 — Property details (survey number, extent, boundaries, sub-registrar office from saved locations); Step 4 — Transaction details (sale consideration amount with automatic conversion to Tamil words, advance paid, registration date, document number); Step 5 — Witness details (witness 1 and witness 2 names and addresses) plus document preparer selection.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/TamilPreview.tsx",
+        "frontend/src/pages/SaleDeedForm.tsx",
+        "frontend/src/utils/tamilNumberConverter.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-an-agreement-deed-creation-form-with-fields-for-buyer-seller-details-advance-amount-paid-balance-amount-deadline-date-for-full-payment-property-details-and-two-witness-details-the-form-generates-a-tamil-agreement-deed-document-in-live-preview-on-the-right-side",
+      "featureTitle": "Build an Agreement Deed creation form (தனி படிவம்) with fields for: buyer/seller details, advance amount paid, balance amount, deadline date for full payment, property details, and two witness details. The form generates a Tamil Agreement Deed document in live preview on the right side.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/AgreementDeedForm.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-tamil-document-auto-generation-logic-in-the-live-preview-1-automatically-use-singular-form-when-there-is-one-seller-buyer-and-plural-form-when-there-are-multiple-e-g-vs-2-display-the-correct-relationship-term-based-on-the-selected-relationship-type-3-render-full-tamil-sale-deed-and-agreement-deed-template-text-populated-with-form-data",
+      "featureTitle": "Implement Tamil document auto-generation logic in the live preview: (1) Automatically use singular form when there is one seller/buyer and plural form when there are multiple (e.g., விற்பவர் vs விற்பவர்கள்); (2) Display the correct relationship term based on the selected relationship type; (3) Render full Tamil Sale Deed and Agreement Deed template text populated with form data.",
+      "files": [
+        "frontend/src/components/TamilPreview.tsx",
+        "frontend/src/utils/tamilTextGenerator.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-pdf-download-and-print-preview-for-both-sale-deed-and-agreement-deed-the-exported-printed-document-must-use-mukta-malar-font-size-14-for-tamil-text-and-times-new-roman-size-14-for-any-english-text",
+      "featureTitle": "Implement PDF Download and Print Preview for both Sale Deed and Agreement Deed. The exported/printed document must use Mukta Malar font (size 14) for Tamil text and Times New Roman (size 14) for any English text.",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/src/pages/AgreementDeedForm.tsx",
+        "frontend/src/pages/SaleDeedForm.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-save-as-draft-functionality-at-any-step-of-the-sale-deed-or-agreement-deed-form-the-user-can-save-the-current-form-data-as-a-draft-drafts-are-stored-permanently-in-the-ic-backend-a-drafts-listing-page-allows-users-to-resume-view-or-delete-saved-drafts",
+      "featureTitle": "Implement Save as Draft functionality: at any step of the Sale Deed or Agreement Deed form, the user can save the current form data as a draft. Drafts are stored permanently in the IC backend. A Drafts listing page allows users to resume, view, or delete saved drafts.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/AgreementDeedForm.tsx",
+        "frontend/src/pages/Drafts.tsx",
+        "frontend/src/pages/SaleDeedForm.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-consistent-professional-visual-theme-throughout-the-application-suitable-for-a-legal-property-document-management-tool-use-a-clean-formal-aesthetic-with-warm-neutral-tones-cream-deep-teal-or-dark-green-gold-accents-clear-tamil-english-bilingual-labels-and-a-structured-sidebar-navigation-linking-to-party-management-location-management-sale-deed-agreement-deed-and-drafts",
+      "featureTitle": "Apply a consistent, professional visual theme throughout the application suitable for a legal/property document management tool. Use a clean, formal aesthetic with warm neutral tones (cream, deep teal or dark green, gold accents), clear Tamil + English bilingual labels, and a structured sidebar navigation linking to: Party Management, Location Management, Sale Deed, Agreement Deed, and Drafts.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/AgreementDeedForm.tsx",
+        "frontend/src/pages/Drafts.tsx",
+        "frontend/src/pages/LocationManagement.tsx",
+        "frontend/src/pages/PartyManagement.tsx",
+        "frontend/src/pages/SaleDeedForm.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
